@@ -26,6 +26,7 @@ const CM_BLINK_ALWAYS        = 0;
 const CM_BLINK_NEVER         = 1;
 const CM_BLINK_ON_CONNECT    = 2;
 const CM_BLINK_ON_DISCONNECT = 3;
+const CM_BLINK_DONT_MESS_WITH_ME = 4;
 const CM_FLUSH_TIMEOUT       = 30;
 const CM_START_NO_ACTION     = 0;
 const CM_START_CONNECTED     = 1;
@@ -457,6 +458,11 @@ class ConnectionManager {
 
     // Enables of disables BlinkUp based on _blinkupBehavior and _connected
     function _setBlinkUpState() {
+	    // If you prefer to manage blinkup out of the ConnectionManager
+        if (_blinkupBehavior == CM_BLINK_DONT_MESS_WITH_ME) {
+            return;
+        }
+
         // If it's set to always blinkup
         if (_blinkupBehavior == CM_BLINK_ALWAYS) {
             imp.enableblinkup(true);
